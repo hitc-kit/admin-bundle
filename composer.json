@@ -1,0 +1,21 @@
+{
+    "name": "hitc-kit/admin-bundle",
+    "type": "symfony-bundle",
+    "description": "Панель управления для «hitc-kit/cms»",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Maksim Voskresenskii",
+            "email": "maksim@24webdev.ru"
+        }
+    ],
+    "require": {
+        "hitc-kit/core-bundle": "*",
+        "almasaeed2010/adminlte": "^3.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "HitcKit\\AdminBundle\\": ""
+        }
+    }
+}
