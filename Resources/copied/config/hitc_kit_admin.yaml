@@ -1,0 +1,4 @@
+hitc_kit_admin_dashboard:
+    resource: dashboard
+    type: hitc_kit_admin
+    prefix: /admin

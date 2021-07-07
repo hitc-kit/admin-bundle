@@ -10,8 +10,7 @@
         }
     ],
     "require": {
-        "hitc-kit/core-bundle": "*",
-        "almasaeed2010/adminlte": "^3.1"
+        "hitc-kit/core-bundle": "*"
     },
     "autoload": {
         "psr-4": {

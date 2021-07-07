@@ -1,0 +1,110 @@
+{% extends '@HitcKitAdmin/base.html.twig' %}
+{% trans_default_domain 'HitcKitAdminBundle' %}
+
+{% set title_separator = title_separator is defined ? title_separator : ' - ' %}
+{% set title_translation_domain = title_translation_domain is defined ? title_translation_domain : 'HitcKitAdminBundle' %}
+{% set title_translation_params = title_translation_params is defined ? title_translation_params : [] %}
+{% set title_action = (title_action is defined ? title_action : app.request.attributes.get('_route'))|trans(title_translation_params, title_translation_domain) %}
+{% set title_target = title_target is defined ? (title_target|length > 30 ? title_target|slice(0, 29) ~ '...' : title_target) : null %}
+
+{% block title %}
+    {%- if knp_menu_get_current_item('admin_tree').level %}
+        {%- if title_target %}{{ title_target ~ title_separator }}{% endif %}
+        {{- title_action ~ title_separator }}
+    {%- endif %}
+    {{- parent() -}}
+{% endblock %}
+
+{% set body_class = 'hold-transition sidebar-mini layout-fixed layout-navbar-fixed' %}
+
+{% block body %}
+    <div class="wrapper">
+        <!-- Navbar -->
+        <nav class="main-header navbar navbar-expand navbar-white navbar-light">
+            <!-- Left navbar links -->
+            <ul class="navbar-nav">
+                <li class="nav-item">
+                    <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
+                </li>
+            </ul>
+
+            <!-- Right navbar links -->
+            <ul class="navbar-nav ml-auto">
+                <!-- Notifications Dropdown Menu -->
+                {{ render(controller('HitcKit\\AdminBundle\\Controller\\DefaultController::menuUser')) }}
+            </ul>
+        </nav>
+        <!-- /.navbar -->
+
+        <!-- Main Sidebar Container -->
+        <aside class="main-sidebar sidebar-dark-secondary elevation-4">
+            <!-- Brand Logo -->
+            <a href="https://24webdev.ru" target="_blank" class="brand-link text-center">
+                <img src="{{ asset('bundles/hitckitadmin/images/logo.png') }}" alt="Надежный IT сервис" class="brand-image mr-n1" style="opacity: .8">{# -#}
+                <span class="brand-text font-weight-light">Надежный IT сервис</span>
+            </a>
+
+            <!-- Sidebar -->
+            <div class="sidebar">
+                <!-- Sidebar Menu -->
+                <nav class="mt-2">
+                    {{ knp_menu_render('admin_tree', knp_menu_get('admin_tree').extra('render_options', {})) }}
+                </nav>
+                <!-- /.sidebar-menu -->
+            </div>
+            <!-- /.sidebar -->
+        </aside>
+
+        <!-- Content Wrapper. Contains page content -->
+        <div class="content-wrapper">
+            <!-- Content Header (Page header) -->
+            <div class="content-header">
+                <div class="container-fluid">
+                    <div class="row mb-2">
+                        <div class="col-sm-6">
+                            <h1 class="m-0">
+                                {% block heading %}
+                                    {% if knp_menu_get_current_item('admin_tree').level %}
+                                        {{ title_action }}{% if title_target %} «{{ title_target }}»{% endif %}
+                                    {% else %}
+                                        {{ block('title', '@HitcKitAdmin/base.html.twig') }}
+                                    {% endif %}
+                                {% endblock %}
+                            </h1>
+                        </div><!-- /.col -->
+                        <div class="col-sm-6">
+                            <ol class="breadcrumb float-sm-right">
+                                {% for breadcrumb in knp_menu_get_breadcrumbs_array(knp_menu_get_current_item('admin_tree')) %}
+                                    {% if breadcrumb.item.displayed %}
+                                        <li class="breadcrumb-item">
+                                            {% set label = breadcrumb.label|trans(breadcrumb.item.extra('translation_params', {}), breadcrumb.item.extra('translation_domain')) %}
+                                            {% if breadcrumb.uri == '#' %}
+                                                <span>{{ label }}</span>
+                                            {% else %}
+                                                <a href="{{ admin_path(breadcrumb.item) }}" class="text-info">{{ label }}</a>
+                                            {% endif %}
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ol>
+                        </div><!-- /.col -->
+                    </div><!-- /.row -->
+                </div><!-- /.container-fluid -->
+            </div>
+            <!-- /.content-header -->
+
+            <!-- Main content -->
+            <div class="content">
+                <div class="container-fluid">
+                    {% block content %}
+                        <div class="callout callout-info">
+                            <p>{{ 'starter_content'|trans }}</p>
+                        </div>
+                    {% endblock %}
+                </div><!-- /.container-fluid -->
+            </div>
+            <!-- /.content -->
+        </div>
+        <!-- /.content-wrapper -->
+    </div>
+{% endblock %}

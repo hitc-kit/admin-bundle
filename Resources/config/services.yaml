@@ -1,0 +1,18 @@
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    HitcKit\AdminBundle\Controller\:
+        resource: '../../Controller/'
+        tags: [ 'controller.service_arguments' ]
+
+    HitcKit\AdminBundle\Services\:
+        resource: '../../Services/'
+
+    HitcKit\AdminBundle\Services\DividingLoader:
+        tags: [routing.loader]
+
+    HitcKit\AdminBundle\Services\AdminMenuProvider:
+        arguments: [ "@knp_menu.factory" ]
+        tags: [knp_menu.provider]

@@ -1,0 +1,13 @@
+{
+  "entrypoints": {
+    "app": {
+      "js": [
+        "/bundles/hitckitadmin/build/runtime.js",
+        "/bundles/hitckitadmin/build/app.js"
+      ],
+      "css": [
+        "/bundles/hitckitadmin/build/app.css"
+      ]
+    }
+  }
+}

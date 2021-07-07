@@ -1,0 +1,11 @@
+@import "~admin-lte/plugins/fontawesome-free/css/all.css";
+@import "~admin-lte/plugins/icheck-bootstrap/icheck-bootstrap.css";
+@import "~admin-lte/dist/css/adminlte.css";
+
+label.required span.text:after {
+    content: ' *';
+}
+
+.form-error-icon.badge {
+    font-size: .75rem;
+}

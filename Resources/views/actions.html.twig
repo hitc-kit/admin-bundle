@@ -1,0 +1,13 @@
+{% macro write(parameters = {}) %}
+    <div class="btn-group">
+        {% for item in knp_menu_get_current_item('admin_tree').children %}
+            <a href="{{ admin_path(item, parameters) }}" role="button"
+               class="btn btn-default btn-sm my-1"
+               data-toggle="tooltip" data-placement="left"
+               title="{{ item.label|trans([], item.extra('translation_domain', null)) }}"
+            >
+                <i class="{{ item.extra('icon_class', 'fas fa-terminal') }}"></i>
+            </a>
+        {% endfor %}
+    </div>
+{% endmacro %}

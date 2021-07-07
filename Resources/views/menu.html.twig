@@ -1,0 +1,18 @@
+{% extends '@KnpMenu/menu.html.twig' %}
+
+{% block label %}
+    {% if not item.extra('icon_class', false) is empty %}<i class="{{ item.extra('icon_class') }} nav-icon"></i>{% endif %}
+    <p>{{ parent() }}{% if item.hasChildren and item.displayChildren %}<i class="right fas fa-angle-left"></i>{% endif %}</p>
+{% endblock %}
+
+{% block item %}
+    {% if options.link_current_class is defined and matcher.isCurrent(item) %}
+        {% set link_class = item.linkAttribute('class') %}
+        {% do item.setLinkAttribute('class', link_class is not empty ? link_class ~ ' ' ~ options.link_current_class : options.link_current_class ) %}
+    {% endif %}
+    {% if options.link_ancestor_class is defined and matcher.isAncestor(item, options.matchingDepth) %}
+        {% set link_class = item.linkAttribute('class') %}
+        {% do item.setLinkAttribute('class', link_class is not empty ? link_class ~ ' ' ~ options.link_ancestor_class : options.link_ancestor_class ) %}
+    {% endif %}
+    {{ parent() }}
+{% endblock %}
